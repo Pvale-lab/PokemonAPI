@@ -1,4 +1,4 @@
-// 1. Seleciona os elementos 
+// 1. Seleciona os elementos do html
 const form = document.getElementById('searchForm');
 const pokemonInput = document.getElementById('pokemonInput');
 const pokemonCard = document.getElementById('pokemonCard');
@@ -8,14 +8,15 @@ const pokemonId = document.getElementById('pokemonId');
 
 const errorMessage = document.getElementById('errorMessage');
 
-// URL da API
+// CONFIGURAÇÃO DA API
+
 const API_URL = 'https://pokeapi.co/api/v2/pokemon/';
 
-// 2. Adiciona o evento ao formulário 
+// 2. Adiciona o evento ao formulário (Enter ou botão)
 form.addEventListener('submit', (e) => {
     e.preventDefault(); 
     const query = pokemonInput.value.toLowerCase().trim();
-    
+    //(se o usuário digitou algo)
     if (query) {
         fetchPokemon(query);
     }
@@ -35,20 +36,20 @@ async function fetchPokemon(query) {
         if (!response.ok) {
             throw new Error('Pokémon não encontrado!');
         }
-
+        //Converte a resposta bruta (texto) em um Objeto JavaScript
         const data = await response.json();
 
         // 4. Chama a função de exibição
         displayPokemon(data);
 
     } catch (error) {
-        // 5. Mostra o erro 
+        // 5. chama a funçao erro 
         displayError(error.message);
     }
 }
 
 /**
- * 6. Atualiza o DOM 
+ * 6. Atualiza a exibiçao 
  */
 function displayPokemon(data) {
     //  dados que queremos
@@ -66,7 +67,7 @@ function displayPokemon(data) {
 }
 
 /**
- * 7. Exibe uma mensagem de erro no DOM
+ * 7. Exibe uma mensagem de erro
  */
 function displayError(message) {
     errorMessage.textContent = message;
